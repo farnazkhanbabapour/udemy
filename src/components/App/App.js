@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Validation from '../validation/validation';
 import Char from '../char/char';
-import ReactDom from "react-dom";
+
 
 
 
@@ -11,8 +11,9 @@ import ReactDom from "react-dom";
     super(props);
     this.state={userInput:" "};
   }
-  inputChangeHandler= (event) => {
-    this.setState({userInput:event.target.value})
+  inputChangeHandler= (e) => {
+    this.setState({userInput:e.target.value})
+    console.log(e)
   }
   deleteHandler= (index)=> {
     const text= this.state.userInput.split("");
@@ -21,20 +22,27 @@ import ReactDom from "react-dom";
     this.setState({userInput:updateText})
 
   }
+  charList=()=>{
+    var result= [];
+   let text=this.state.userInput.split("");
+   for(var i=0; i <text.length; i++ ){
+     result.push(<Char cliecked={()=>this.deleteHandler(i)} character={text[i]}/>)
+   }
+
+   return result ;
+
+
+  }
 
 
 render(){
-  const charList=this.state.userInput.split("").map((ch,index)=> {
-    return (
-    <Char character={ch} key={index} clicked={()=>{this.deleteHandler(index)}}/>
-    )
-  });
+
   return(
     <div>
         <input type="text" value={this.state.userInput} onChange={this.inputChangeHandler} />
         <p>{this.state.userInput}</p>
         <Validation inputLength={this.state.userInput.length}  />
-        {charList}
+        {this.charList()}
     </div>
    
   )
