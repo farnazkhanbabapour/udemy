@@ -24,10 +24,10 @@ import Char from '../char/char';
   }
   charList=()=>{
     var result= [];
-   let text=this.state.userInput.split("");
-   for(var i=0; i <text.length; i++ ){
+    let text=this.state.userInput.split("");
+    for(var i=0; i <text.length; i++ ){
      result.push(<Char cliecked={()=>this.deleteHandler(i)} character={text[i]}/>)
-   }
+    }
 
    return result ;
 
